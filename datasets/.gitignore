@@ -1,0 +1,5 @@
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore
+# see https://github.com/GestaltCogTeam/BasicTS

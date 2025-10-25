@@ -1,0 +1,70 @@
+build.experiment_name = 'MetaST_PEMS03'
+build.module = 'experiments.forecast'
+build.repeat = 3
+build.data_path = 'PEMS03'
+build.model_type = 'metast'
+
+build.variables_dict = {
+    'seed': [42, 123, 456]
+}
+
+metast.hidden_dims = 64
+metast.dropout = 0.1
+
+metast.node_encoder_config = {
+    'input_dims': 3,
+    'use_pretrained_encoder': False,
+    'pretrained_config': {
+    },
+    'ne_layer_num': 3,
+    'activation': 'relu'
+}
+
+metast.anchor_encoder_config = {
+    'feature_num': 3,
+    'node_num': 89,  # PEMS03: int(358 * 0.25)
+    'k_neighbors': 5,
+    'gnn_layer_num': 2,
+    'gnn_use_residual': True,
+    'use_bias': True,
+    'learn_eps': False,
+    'mlp_layer_num': 2,
+    'activation': 'relu',
+    'sim_metric': 'attention',
+    'gnn_type': 'gcn',
+    'aggregation_type': 'pool_gating'
+}
+
+metast.predictor_config = {
+    'x_len': 12,
+    'y_len': 12,
+    'inr_layer_num': 3,
+    'n_fourier_feats': 1024,
+    'scales': [0.01, 0.1, 1, 5, 10, 20, 50, 100],
+    'activation': 'relu',
+    'mlp_layer_num': 3,
+    'gru_layers': 2,
+    'bidirectional': False,
+    'num_heads': 8,
+    'condition_type': 'film'
+}
+
+train.loss_name = 'mse'
+train.epochs = 50
+
+get_scheduler.warmup_epochs = 5
+
+get_data.batch_size = 32
+
+Checkpoint.patience = 7
+
+ColdStartForecastDataset.scale = True
+ColdStartForecastDataset.horizon_len = 12
+ColdStartForecastDataset.lookback_mult = 1
+ColdStartForecastDataset.seen_node_ratio = 0.25
+
+get_optimizer.lr = 1e-2
+get_optimizer.lambda_lr = 1.
+get_optimizer.weight_decay = 0.
+
+instance.save_vals = True

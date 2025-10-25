@@ -1,0 +1,39 @@
+build.experiment_name = 'Koopa_PEMS03'
+build.module = 'experiments.forecast'
+build.repeat = 3
+build.data_path = 'PEMS03'
+build.model_type = 'koopa'
+
+build.variables_dict = {
+    'seed': [42, 123, 456]
+}
+
+koopa.enc_in = 3
+koopa.seq_len = 12
+koopa.pred_len = 12
+koopa.seg_len = 6
+koopa.num_blocks = 4
+koopa.dynamic_dim = 128
+koopa.hidden_dim = 64
+koopa.hidden_layers = 2
+koopa.multistep = False
+
+train.loss_name = 'mse'
+train.epochs = 50
+
+get_scheduler.warmup_epochs = 5
+
+get_data.batch_size = 64
+
+Checkpoint.patience = 7
+
+ColdStartForecastDataset.scale = True
+ColdStartForecastDataset.horizon_len = 12
+ColdStartForecastDataset.lookback_mult = 1
+ColdStartForecastDataset.seen_node_ratio = 0.1
+
+get_optimizer.lr = 1e-2
+get_optimizer.lambda_lr = 1.
+get_optimizer.weight_decay = 0.
+
+instance.save_vals = True

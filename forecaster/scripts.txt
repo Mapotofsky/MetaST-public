@@ -1,0 +1,27 @@
+Build a single config file:
+'''
+make build config=experiments/configs/file_name.gin
+'''
+or
+'''
+python -m experiments.forecast --config_path=experiments/configs/file_name.gin build_experiment
+'''
+
+Build a group of config files:
+'''
+make build-all path=experiments/configs
+'''
+
+Run the experiment:
+'''
+python -m experiments.forecast --config_path=experiment_storage/experiment_name/config.gin run
+'''
+or
+'''
+make run command=experiment_storage/experiment_name/command
+'''
+
+Observe the results on tensorboard:
+'''
+tensorboard --logdir experiment_storage/
+'''

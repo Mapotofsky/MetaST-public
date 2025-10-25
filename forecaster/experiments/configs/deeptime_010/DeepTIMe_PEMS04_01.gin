@@ -1,0 +1,35 @@
+build.experiment_name = 'DeepTIMe_PEMS04'
+build.module = 'experiments.forecast'
+build.repeat = 3
+build.data_path = 'PEMS04'
+build.model_type = 'deeptime'
+
+build.variables_dict = {
+    'seed': [42, 123, 456]
+}
+
+deeptime.datetime_feats = 0
+deeptime.layer_size = 256
+deeptime.inr_layers = 5
+deeptime.n_fourier_feats = 4096
+deeptime.scales = [0.01, 0.1, 1, 5, 10, 20, 50, 100]
+
+train.loss_name = 'mse'
+train.epochs = 50
+
+get_scheduler.warmup_epochs = 5
+
+get_data.batch_size = 64
+
+Checkpoint.patience = 7
+
+ColdStartForecastDataset.scale = True
+ColdStartForecastDataset.horizon_len = 12
+ColdStartForecastDataset.lookback_mult = 1
+ColdStartForecastDataset.seen_node_ratio = 0.1
+
+get_optimizer.lr = 1e-2
+get_optimizer.lambda_lr = 1.
+get_optimizer.weight_decay = 0.
+
+instance.save_vals = True
